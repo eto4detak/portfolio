@@ -178,7 +178,7 @@ get_header('home'); ?>
 
         <?php 
         global $post;
-        $my_posts = get_posts( array(
+        $my_portfolios = get_posts( array(
             'posts_per_page' => 5,
             'category'    => 0,
             //'orderby'     => 'date',
@@ -197,7 +197,7 @@ get_header('home'); ?>
                 <div class="portfolio-sildes owl-carousel">
 
                     <?php 
-                    foreach( $my_posts as $post ){
+                    foreach( $my_portfolios as $post ){
                         setup_postdata( $post );
                     ?>
                     <!-- Single Portfolio Slide -->

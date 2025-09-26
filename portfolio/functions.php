@@ -53,7 +53,7 @@ function eto_register_post_types(){
 		//'capabilities'      => 'post', // массив дополнительных прав для этого типа записи
 		//'map_meta_cap'      => null, // Ставим true чтобы включить дефолтный обработчик специальных прав
 		'hierarchical'        => false,
-		'supports'            => [ 'title', 'editor', 'thumbnail', ], // 'title','editor','author','thumbnail','excerpt','trackbacks','custom-fields','comments','revisions','page-attributes','post-formats'
+		'supports'            => [ 'title', 'editor', 'thumbnail', 'comments'], // 'title','editor','author','thumbnail','excerpt','trackbacks','custom-fields','comments','revisions','page-attributes','post-formats'
 		'taxonomies'          => [],
 		'has_archive'         => false,
 		'rewrite'             => true,
@@ -196,4 +196,118 @@ function eto_register_post_types_footer(){
 }
 
 
+//# изменить класс в коменте
+add_filter( 'comment_reply_link', 'eto_comment_reply_link_class' );
 
+function eto_comment_reply_link_class( $class ) {
+	$class = str_replace( "comment-reply-link", "comment-reply-link reply", $class );
+
+	return $class;
+}
+
+
+
+//# Изменить порядок вывода полей в форме добавления комментария
+add_filter('comment_form_fields', 'kama_reorder_comment_fields' );
+function kama_reorder_comment_fields( $fields ){
+	$new_fields = array(); // сюда соберем поля в новом порядке
+
+	$myorder = array('author','email','comment'); // нужный порядок
+
+	foreach( $myorder as $key ){
+		$new_fields[ $key ] = $fields[ $key ];
+		unset( $fields[ $key ] );
+	}
+
+	// если остались еще какие-то поля добавим их в конец
+	if( $fields )
+		foreach( $fields as $key => $val )
+			$new_fields[ $key ] = $val;
+
+	return $new_fields;
+}
+
+//# контакт форм 7 убрать тэги p
+add_filter('wpcf7_autop_or_not', '__return_false');
+//# заменить input на button
+add_filter( 'wpcf7_form_elements', function ( $html ) {
+
+	preg_match( '~<input([^>]+)type=["\']submit["\']([^>/]+)/?>~i', $html, $match );
+
+	if( $match ){
+		$input = $match[0];
+		$attr = trim( $match[1] . $match[2] );
+
+		preg_match( '/value=["\']([^"\']+)/', $input, $mm );
+		$button_text = $mm[1];
+
+		$html = str_replace( $input, "<button $attr>$button_text</button>", $html );
+	}
+
+	return $html;
+
+} );
+
+
+	// Add theme support for selective refresh for widgets.
+	//add_theme_support( 'customize-selective-refresh-widgets' );
+
+
+	
+/**
+ * Register widget area.
+ *
+ * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
+ */
+function mavix_insurance_widgets_init() {
+	register_sidebar( array(
+		'name'          => esc_html__( 'Sidebar', 'mavix-insurance' ),
+		'id'            => 'sidebar-1',
+		'description'   => esc_html__( 'Add widgets here.', 'mavix-insurance' ),
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</aside>',
+		'before_title'  => '<h2 class="widget-title">',
+		'after_title'   => '</h2>',
+	) );
+		register_sidebar( array(
+		'name'          => sprintf( esc_html__( 'Footer %d', 'mavix-insurance' ), 1 ),
+		'id'            => 'footer-1',
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</aside>',
+		'before_title'  => '<h2 class="widget-title">',
+		'after_title'   => '</h2>',
+	) );
+	register_sidebar( array(
+		'name'          => sprintf( esc_html__( 'Footer %d', 'mavix-insurance' ), 2 ),
+		'id'            => 'footer-2',
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</aside>',
+		'before_title'  => '<h2 class="widget-title">',
+		'after_title'   => '</h2>',
+	) );
+	register_sidebar( array(
+		'name'          => sprintf( esc_html__( 'Footer %d', 'mavix-insurance' ), 3 ),
+		'id'            => 'footer-3',
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</aside>',
+		'before_title'  => '<h2 class="widget-title">',
+		'after_title'   => '</h2>',
+	) );
+	register_sidebar( array(
+		'name'          => sprintf( esc_html__( 'Footer %d', 'mavix-insurance' ), 4 ),
+		'id'            => 'footer-4',
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</aside>',
+		'before_title'  => '<h2 class="widget-title">',
+		'after_title'   => '</h2>',
+	) );
+}
+add_action( 'widgets_init', 'mavix_insurance_widgets_init' );
+
+
+
+
+
+
+
+?>
