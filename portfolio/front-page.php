@@ -1,5 +1,4 @@
 <?php
-
 get_header(); ?>
 <section class="welcome-area">
         <div class="welcome-slides owl-carousel">

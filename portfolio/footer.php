@@ -1,37 +1,17 @@
-<?php
-        global $post;
-        $my_posts = get_posts( array(
-            'posts_per_page' => 5,
-            'category'    => 0,
-            'orderby'     => 'ID',
-            'order'       => 'ASC',
-            'include'     => array(),
-            'exclude'     => array(),
-            'meta_key'    => '',
-            'meta_value'  =>'',
-            'post_type'   => 'footer',
-            'suppress_filters' => true, // подавление работы фильтров изменения SQL запроса
-        ) );
-        //var_dump($my_posts);
-?>
-<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->
+
+    <?php if ( is_active_sidebar( 'sidebar-1' ) ) : ?>
+        <ul id="sidebar">
+            <?php dynamic_sidebar( 'sidebar-1' ); ?>
+        </ul>
+    <?php endif; ?>
+
    <!-- ***** Footer Area Start ***** -->
    <footer class="footer-area section-padding-80-0">
-        <div class="container">
-            <div class="row justify-content-between">
-                <?php
-                   foreach( $my_posts as $post ){
-                    setup_postdata( $post );
-                    echo get_the_content();
-                    //the_post();
-
-                }
-
-        wp_reset_postdata(); // сброс 
-
-        ?>
-
-        </div>
+        <?php if ( is_active_sidebar( 'footer-1' ) ) : ?>
+            <ul id="sidebar">
+                <?php dynamic_sidebar( 'footer-1' ); ?>
+            </ul>
+        <?php endif; ?>
     </footer>
     <!-- ***** Footer Area End ***** -->
 

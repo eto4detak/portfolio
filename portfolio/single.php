@@ -1,4 +1,6 @@
 <?php
+global $template_name;
+$template_name = 'Blog Single';
 get_header(); ?>
     <!-- ***** Blog Details Area Start ***** -->
     <section class="blog-details-area section-padding-80">
@@ -55,30 +57,8 @@ get_header(); ?>
     </section>
     <!-- ***** Blog Details Area End ***** -->
 
-	    <!-- ***** Newsletter Area Start ***** -->
-    <section class="uza-newsletter-area">
-        <div class="container">
-            <div class="row align-items-center justify-content-between">
-                <!-- Newsletter Content -->
-                <div class="col-12 col-md-6 col-lg-6">
-                    <div class="nl-content mb-80">
-                        <h2>Subscribe to our Newsletter</h2>
-                        <p>Subscribe our newsletter gor get notification about new updates, etc...</p>
-                    </div>
-                </div>
 
-                <div class="col-12 col-md-6 col-lg-5">
-                    <div class="nl-form mb-80">
-                    <?php echo do_shortcode( '[contact-form-7 id="8a2cfe9" title="form for footer"]' ); ?>
-                    </div>
-                </div>
 
-            </div>
-            <!-- Border Bottom -->
-            <div class="border-line"></div>
-        </div>
-    </section>
-    <!-- ***** Newsletter Area End ***** -->
 <?php
 get_footer();
 

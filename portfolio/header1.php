@@ -73,7 +73,55 @@
 
                         <!-- Nav Start -->
                         <div class="classynav">
-                            <?php my_nav_menu( [ 'menu'  => 'header' ] ); ?>
+                        <?php 
+
+                        $items = wp_get_nav_menu_items( 'header', [] );
+
+                        $mass = [];
+                        if(!empty($items)){
+                        
+                        foreach($items as $item){
+                            if($item->menu_item_parent == 0){
+                               $mass[$item->ID] = new stdClass();
+                               $mass[$item->ID]->ID = $item->ID;
+                               $mass[$item->ID]->title = $item->title;
+                               $mass[$item->ID]->guid = $item->guid;
+                               $mass[$item->ID]->menu_item_parent = $item->menu_item_parent;
+                               $mass[$item->ID]->items = [];
+                            }else{
+                                if(isset($mass[$item->menu_item_parent])){
+                                    $mass[$item->menu_item_parent]->items[$item->ID] = new stdClass();
+                                    $mass[$item->menu_item_parent]->items[$item->ID]->ID = $item->ID;
+                                    $mass[$item->menu_item_parent]->items[$item->ID]->title = $item->title;
+                                    $mass[$item->menu_item_parent]->items[$item->ID]->guid = $item->guid;
+                                } 
+                            }
+                        }
+
+                        ?><ul id="nav"><?php
+
+                            foreach($mass as $item){
+                                ?>
+                                <li <?php if(get_permalink() == $item->guid) echo 'class="current-item"'; ?>>
+                                    <a href="<?php echo $item->guid; ?>">
+                                        <?php echo $item->title; ?></a><?php if(!empty($item->items)){
+                                        echo '<ul class="dropdown">';
+                                            foreach ($item->items as $value) {
+                                                echo '<li>';
+                                                ?>
+                                                <a href="<?php echo $value->guid; ?>"><?php echo $value->title; ?></a>
+                                                <?php
+                                                echo '</li>';
+                                            }
+                                        echo '</ul>';
+                                    }
+                                     ?>
+                                </li><?php
+                            }
+
+                            ?></ul><?php
+                        }
+                        ?>
                             <!-- Get A Quote -->
                             <div class="get-a-quote ml-4 mr-3">
                                 <a href="" class="btn uza-btn">Get A Quote</a>
@@ -99,7 +147,6 @@
     <!-- ***** Header Area End ***** -->
 
 
-<?php if(!is_front_page()) : ?>
     <!-- ***** Breadcrumb Area Start ***** -->
     <div class="breadcrumb-area">
         <div class="container h-100">
@@ -129,5 +176,5 @@
         </div>
     </div>
     <!-- ***** Breadcrumb Area End ***** -->
-<?php endif; ?>
+
 <?php /////////////////////////////////////////////////////////////////// ?>

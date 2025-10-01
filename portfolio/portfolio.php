@@ -33,6 +33,7 @@ get_header(); ?>
                     $id = get_post_thumbnail_id( $my_post->ID);
                     $post = get_post( $my_post->ID ); // specific post
                     $the_content = apply_filters( 'the_content', $post->post_content );
+                    $str_20 = mb_substr($the_content,0, 20);
                     ?>
                     <!-- Single Portfolio Item -->
                     <div class="col-12 col-sm-6 col-lg-4 col-xl-3 single-portfolio-item 
@@ -44,7 +45,7 @@ get_header(); ?>
                                 <h4><?php
                                 if(!empty($term_list)) {echo $term_list[0]->name; }
                                  ?></h4>
-                                <p><?php echo $the_content;?></p>
+                                <p><?php echo $str_20;?></p>
                             </div>
                             <!-- View More -->
                             <div class="view-more-btn">
@@ -69,30 +70,5 @@ get_header(); ?>
         </div>
     </section>
     <!-- ****** Gallery Area End ****** -->
-
-    <!-- ***** Newsletter Area Start ***** -->
-    <section class="uza-newsletter-area">
-        <div class="container">
-            <div class="row align-items-center justify-content-between">
-                <!-- Newsletter Content -->
-                <div class="col-12 col-md-6 col-lg-6">
-                    <div class="nl-content mb-80">
-                        <h2>Subscribe to our Newsletter</h2>
-                        <p>Subscribe our newsletter gor get notification about new updates, etc...</p>
-                    </div>
-                </div>
-
-                <div class="col-12 col-md-6 col-lg-5">
-                    <div class="nl-form mb-80">
-                    <?php echo do_shortcode( '[contact-form-7 id="ea19526" title="Контактная форма 1"]' ); ?>
-                    </div>
-                </div>
-
-            </div>
-            <!-- Border Bottom -->
-            <div class="border-line"></div>
-        </div>
-    </section>
-    <!-- ***** Newsletter Area End ***** -->
 
 <?php get_footer(); ?>
