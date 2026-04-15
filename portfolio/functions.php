@@ -369,12 +369,12 @@ class My_Walker_Nav_Menu extends Walker_Nav_Menu {
 		$attributes .= ' class="menu-link ' . ( $depth > 0 ? 'sub-menu-link' : 'main-menu-link' ) . '"';
 
 		$item_output = strtr( '{BEFORE}<a{ATTRIBUTES}>{LINK_BEFORE}{TITLE}{LINK_AFTER}</a>{AFTER}', [
-			'{BEFORE}'      => $args->before,
+			'{BEFORE}'      => isset($args->before) ? $args->before : '',
 			'{ATTRIBUTES}'  => $attributes,
-			'{LINK_BEFORE}' => $args->link_before,
+			'{LINK_BEFORE}' => isset($args->link_before) ? $args->link_before : '',
 			'{TITLE}'       => ($depth > 0 ? '- ' : '') . apply_filters( 'the_title', $item->title, $item->ID ),
-			'{LINK_AFTER}'  => $args->link_after,
-			'{AFTER}'       => $args->after,
+			'{LINK_AFTER}'  => isset($args->link_after) ? $args->link_after : '',
+			'{AFTER}'       => isset($args->after) ? $args->after : '',
 		] );
 
 		$output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );
