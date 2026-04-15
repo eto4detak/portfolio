@@ -8,9 +8,7 @@
    <!-- ***** Footer Area Start ***** -->
    <footer class="footer-area section-padding-80-0">
         <?php if ( is_active_sidebar( 'footer-1' ) ) : ?>
-            <ul id="sidebar">
-                <?php dynamic_sidebar( 'footer-1' ); ?>
-            </ul>
+            <?php dynamic_sidebar( 'footer-1' ); ?>
         <?php endif; ?>
     </footer>
     <!-- ***** Footer Area End ***** -->

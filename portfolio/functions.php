@@ -230,8 +230,8 @@ function mavix_insurance_widgets_init() {
 		register_sidebar( array(
 		'name'          => sprintf( esc_html__( 'Footer %d', 'mavix-insurance' ), 1 ),
 		'id'            => 'footer-1',
-		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-		'after_widget'  => '</aside>',
+		'before_widget' => '',
+		'after_widget'  => '',
 		'before_title'  => '<h2 class="widget-title">',
 		'after_title'   => '</h2>',
 	) );
