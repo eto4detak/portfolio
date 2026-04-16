@@ -28,7 +28,7 @@ function portfolio_print_contact_form_7(){
         'numberposts' => 1,
         'category'    => 0,
         'orderby'     => 'date',
-        'order'       => 'DESC',
+        'order'       => 'ASC',
         'include'     => array(),
         'exclude'     => array(),
         'meta_key'    => '',
