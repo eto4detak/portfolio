@@ -11,40 +11,47 @@ get_header(); ?>
     <section class="uza-portfolio-area section-padding-80">
 
         <!-- Portfolio Menu -->
+         <?php 
+         $terms = get_terms( [
+                'taxonomy' => 'taxonomy',
+                'hide_empty' => false,
+            ] );
+         ?>
         <div class="portfolio-menu text-center mb-80">
             <button class="btn active" data-filter="*">All Portfolio</button>
-            <button class="btn" data-filter=".ux-ui-design">UX/UI Design</button>
-            <button class="btn" data-filter=".market-analytics">Market Analytics</button>
-            <button class="btn" data-filter=".marketing-social">Marketing Social</button>
+            <?php foreach ($terms as $term) { ?>
+                <button class="btn" data-filter=".<?php echo $term->slug ?>"><?php echo $term->name ?></button>
+            <?php }?>
         </div>
 
         <div class="container-fluid">
             <div class="row uza-portfolio">
                 <?php 
-
+                global $post;
                 $args = array(
                     'post_type' => 'portfolio'
                 );
                 $query = new WP_Query;
                 $portfolio_posts = $query->query($args);
                 
-                foreach( $portfolio_posts as $my_post ){
-                    $term_list = wp_get_post_terms( $my_post->ID, 'taxonomy', array('fields' => 'all') );
-                    $id = get_post_thumbnail_id( $my_post->ID);
-                    $post = get_post( $my_post->ID ); // specific post
+                foreach( $portfolio_posts as $post ){
+                    $term_list = wp_get_post_terms( $post->ID, 'taxonomy', array('fields' => 'all') );
+                    $id = get_post_thumbnail_id( $post->ID);
                     $the_content = apply_filters( 'the_content', $post->post_content );
-                    $str_20 = mb_substr($the_content,0, 20);
+                    $str_20 = substr($the_content,0, 100);
                     ?>
                     <!-- Single Portfolio Item -->
                     <div class="col-12 col-sm-6 col-lg-4 col-xl-3 single-portfolio-item 
                     <?php if(!empty($term_list)) {echo $term_list[0]->slug; } ?>">
                         <div class="single-portfolio-slide">
-                            <img src="<?php  echo wp_get_attachment_url( $id); ?>" alt="">
+                            <?php if(has_post_thumbnail()) {?>
+                                <?php the_post_thumbnail(); ?>
+                            <?php }?>
                             <!-- Overlay Effect -->
                             <div class="overlay-effect">
-                                <h4><?php
-                                if(!empty($term_list)) {echo $term_list[0]->name; }
-                                 ?></h4>
+                                <h4>
+                                    <?php the_title(); ?>
+                                </h4>
                                 <p><?php echo $str_20;?></p>
                             </div>
                             <!-- View More -->
@@ -53,11 +60,9 @@ get_header(); ?>
                             </div>
                         </div>
                     </div>
-                    <?php 
-                    //echo '<p>'. $my_post->post_title .'</p>';
-
+                    <?php
                 }
-
+                wp_reset_postdata();
                 ?>
 
             </div>
