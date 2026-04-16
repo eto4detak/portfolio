@@ -21,6 +21,7 @@ function theme_name_scripts() {
 
 //подключить inc
 require get_template_directory() . '/inc/ajaxmore.php';
+require get_template_directory() . '/inc/contact-form-7.php';
 
 
 
@@ -189,26 +190,6 @@ function kama_reorder_comment_fields( $fields ){
 	return $new_fields;
 }
 
-//# контакт форм 7 убрать тэги p
-add_filter('wpcf7_autop_or_not', '__return_false');
-//# заменить input на button
-add_filter( 'wpcf7_form_elements', function ( $html ) {
-
-	preg_match( '~<input([^>]+)type=["\']submit["\']([^>/]+)/?>~i', $html, $match );
-
-	if( $match ){
-		$input = $match[0];
-		$attr = trim( $match[1] . $match[2] );
-
-		preg_match( '/value=["\']([^"\']+)/', $input, $mm );
-		$button_text = $mm[1];
-
-		$html = str_replace( $input, "<button $attr>$button_text</button>", $html );
-	}
-
-	return $html;
-
-} );
 
 
 	

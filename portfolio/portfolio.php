@@ -83,12 +83,11 @@ get_header(); ?>
                     </div>
                 </div>
                 <!-- Newsletter Form -->
-                <div class="col-12 col-md-6 col-lg-5">
+                 <div class="col-12 col-md-6 col-lg-5">
                     <div class="nl-form mb-80">
-                        <form action="#" method="post">
-                            <input type="email" name="nl-email" value="" placeholder="Your Email">
-                            <button type="submit">Subscribe</button>
-                        </form>
+                <?php 
+                    portfolio_print_contact_form_7();
+                ?>
                     </div>
                 </div>
             </div>
