@@ -30,7 +30,7 @@ get_header(); ?>
             </div>
             <div class="row">
                 <div class="col-12 text-center">
-                    <a href="#" class="btn more-post uza-btn btn-3">Load More</a>
+                    <a href="#" class="btn more-post uza-btn btn-3" data-posttype="post" >Load More</a>
                 </div>
             </div>
         </div>

@@ -28,17 +28,23 @@ function portfolio_insert_posts_javascript() {
         var $divBlock = $('.uza-blog-area .container .row-content');
         var $divPortfolio = $('.container-fluid .uza-portfolio');
 
-        $('a.btn.more-post').on('click', function() {            
+        $('a.btn.more-post').on('click', function() {   
+         
             data.paged += 1;
             data.post_type = this.dataset.posttype;
             data.taxonomy = this.dataset.taxonomy;
             data.term = this.dataset.term;
+            if(!data.post_type){
+                data.post_type = 'post';
+            }
 
             // 'ajaxurl' не определена во фронте, поэтому мы добавили её аналог с помощью wp_localize_script()
             jQuery.post( portfolio_ajax.url, data, function(response) {
                 var posts = JSON.parse(response);
 
                 if(data.post_type == 'portfolio'){
+                    $divPortfolio.isotope('layout');
+
                     posts.forEach((post) => {
 
                         var $items = $('<div class="col-12 col-sm-6 col-lg-4 col-xl-3 single-portfolio-item '+ post.term +'">'+
@@ -60,14 +66,18 @@ function portfolio_insert_posts_javascript() {
                         $divPortfolio.isotope('layout');
                     });
                 }
-                $divPortfolio.isotope('layout');
+                
 
                 if(data.post_type == 'post'){
+
                     posts.forEach((post) => {
                         var isoDate = new Date(post.post_date);
-
+                        let imgUrl = 'style="background-image: url();">';
+                        if(post.urlImage){
+                            imgUrl = 'style="background-image: url('+ post.urlImage + ');">';
+                        }
                         var innerBlock = '<div class="col-12 col-lg-4">' +
-                            '<div class="single-blog-post bg-img mb-80" style="background-image: url(' +  post.urlImage + ');">' +
+                            '<div class="single-blog-post bg-img mb-80" '+ imgUrl +
                                 '<div class="post-content">' +
                                     '<span class="post-date"><span>' + isoDate.getDate() + '</span> ' 
                                     + isoDate.toLocaleString('default', { month: 'long' }) 
