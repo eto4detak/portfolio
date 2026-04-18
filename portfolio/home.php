@@ -1,6 +1,6 @@
 <?php
 global $template_name;
-$template_name = 'Blog';
+$template_name = _('Blog');
 get_header(); ?>
 
 

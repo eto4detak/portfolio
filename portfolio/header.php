@@ -115,7 +115,11 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="<?php echo home_url(); ?>"><i class="fa fa-home"></i> Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page"><?php the_title(); ?></li>
+                                <?php if(isset($template_name) && !empty($template_name)): ?>
+                                    <li class="breadcrumb-item active" aria-current="page"><?php echo $template_name; ?></li>
+                                <?php else: ?>
+                                    <li class="breadcrumb-item active" aria-current="page"><?php the_title(); ?></li>
+                                <?php endif; ?>
                             </ol>
                         </nav>
                     </div>
