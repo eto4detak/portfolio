@@ -36,9 +36,9 @@ get_header(); ?>
                 
                 foreach( $portfolio_posts as $post ){
                     $term_list = wp_get_post_terms( $post->ID, 'taxonomy', array('fields' => 'all') );
-                    $id = get_post_thumbnail_id( $post->ID);
                     $the_content = apply_filters( 'the_content', $post->post_content );
                     $str_20 = substr($the_content,0, 100);
+                    $url = get_post_permalink( $post->ID );
                     ?>
                     <!-- Single Portfolio Item -->
                     <div class="col-12 col-sm-6 col-lg-4 col-xl-3 single-portfolio-item 
@@ -56,7 +56,7 @@ get_header(); ?>
                             </div>
                             <!-- View More -->
                             <div class="view-more-btn">
-                                <a href="#"><i class="arrow_right"></i></a>
+                                <a href="<?php echo $url; ?>"><i class="arrow_right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -69,7 +69,7 @@ get_header(); ?>
 
             <div class="row">
                 <div class="col-12 text-center mt-30">
-                    <a href="#" class="btn uza-btn btn-3">Load More</a>
+                    <a  href="#" data-number="1"  data-taxonomy="" data-term="" data-posttype="portfolio" class="btn more-post uza-btn btn-3">Load More</a>
                 </div>
             </div>
         </div>
