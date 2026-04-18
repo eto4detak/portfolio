@@ -17,7 +17,7 @@ function portfolio_scripts() {
 	wp_enqueue_script( 'active', get_template_directory_uri() . '/js/default-assets/active.js', array(), '1.0.0', true );
 
 	//back
-	wp_enqueue_script( 'portfolioajaxmore', get_template_directory_uri() . '/jstheme/ajaxmore.js', array(), '1.0.0', true );
+	//wp_enqueue_script( 'portfolioajaxmore', get_template_directory_uri() . '/jstheme/ajaxmore.js', array(), '1.0.0', true );
 }
 
 
