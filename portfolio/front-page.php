@@ -71,6 +71,10 @@ get_header(); ?>
     </section>
     <!-- ***** Welcome Area End ***** -->
 
+    <?php 
+        echo the_content();
+    ?>
+
     <!-- ***** About Us Area Start ***** -->
     <section class="uza-about-us-area">
         <div class="container">
@@ -82,7 +86,7 @@ get_header(); ?>
                         <?php echo get_the_post_thumbnail( get_the_ID(), 'thumbnail'); ?>
                         <!-- Video Area -->
                         <div class="uza-video-area hi-icon-effect-8">
-                            <a href="https://www.youtube.com/watch?v=sSakBz_eYzQ" class="hi-icon video-play-btn"><i class="fa fa-play" aria-hidden="true"></i></a>
+                            <a href="https://www.youtube.com/watch?v=OkVpn-1Myps" class="hi-icon video-play-btn"><i class="fa fa-play" aria-hidden="true"></i></a>
                         </div>
                     </div>
                 </div>
@@ -207,7 +211,6 @@ get_header(); ?>
 
                         <?php
                         $default_attr = array(
-                            'data-animation' => "slideInRight",
                             'data-delay' => "400ms",
                         );
                         echo get_the_post_thumbnail( $post->ID, 'thumbnail', $default_attr); ?>
@@ -378,44 +381,44 @@ get_header(); ?>
 
             <div class="row">
 
+                <?php 
+                global $post;
+                $my_posts = get_posts( array(
+                    'posts_per_page' => 3,
+                    'category'    => 0,
+                    //'orderby'     => 'date',
+                    //'order'       => 'DESC',
+                    'include'     => array(),
+                    'exclude'     => array(),
+                    'meta_key'    => '',
+                    'meta_value'  =>'',
+                    'post_type'   => 'post',
+                    'suppress_filters' => true, // подавление работы фильтров изменения SQL запроса
+                ) );
+                ?>
+
+                <?php 
+                foreach( $my_posts as $post ){
+                    setup_postdata( $post );
+                    $url = get_the_post_thumbnail_url();
+                    $the_content = apply_filters( 'the_content', $post->post_content );
+                    $str_20 = mb_substr($the_content,0, 20);
+                ?>
+
                 <!-- Single Blog Post -->
                 <div class="col-12 col-lg-4">
-                    <div class="single-blog-post bg-img mb-80" style="background-image: url(./img/bg-img/8.jpg);">
+                    <div class="single-blog-post bg-img mb-80" style="background-image: url(<?php echo $url; ?>);">
                         <!-- Post Content -->
                         <div class="post-content">
-                            <span class="post-date"><span>23</span> August, 2018</span>
-                            <a href="#" class="post-title">SEO: The Movie By Ignite Visibility</a>
-                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing esed diam nonumy eirmod tempor invidunt ut</p>
-                            <a href="#" class="read-more-btn">Read More <i class="arrow_carrot-2right"></i></a>
+                            <span class="post-date"><span><?php echo get_the_date('N'); ?></span> <?php echo get_the_date('F, Y'); ?></span>
+                            <a href="#" class="post-title"><?php the_title(); ?></a>
+                            <p><?php echo $str_20; ?></p>
+                            <a href="<?php the_permalink($post->ID); ?>" class="read-more-btn">Read More <i class="arrow_carrot-2right"></i></a>
                         </div>
                     </div>
                 </div>
 
-                <!-- Single Blog Post -->
-                <div class="col-12 col-lg-4">
-                    <div class="single-blog-post bg-img mb-80" style="background-image: url(./img/bg-img/9.jpg);">
-                        <!-- Post Content -->
-                        <div class="post-content">
-                            <span class="post-date"><span>13</span> December, 2018</span>
-                            <a href="#" class="post-title">What Curling Irons Are The Best Ones</a>
-                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing esed diam nonumy eirmod tempor invidunt ut</p>
-                            <a href="#" class="read-more-btn">Read More <i class="arrow_carrot-2right"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Single Blog Post -->
-                <div class="col-12 col-lg-4">
-                    <div class="single-blog-post bg-img mb-80" style="background-image: url(./img/bg-img/10.jpg);">
-                        <!-- Post Content -->
-                        <div class="post-content">
-                            <span class="post-date"><span>08</span> July, 2018</span>
-                            <a href="#" class="post-title">Amazon REV Workshop: Road to Seattle</a>
-                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing esed diam nonumy eirmod tempor invidunt ut</p>
-                            <a href="#" class="read-more-btn">Read More <i class="arrow_carrot-2right"></i></a>
-                        </div>
-                    </div>
-                </div>
+                <?php }  wp_reset_postdata();  ?>
 
             </div>
         </div>
