@@ -81,7 +81,8 @@
 
                             <!-- Login / Register -->
                             <div class="login-register-btn mx-3">
-                                <a href="<?php echo wp_registration_url(); ?>">Login <span>/ Register</span></a>
+                                <a href="<?php echo wp_login_url(); ?>">Login </a>
+                                <a href="<?php echo wp_registration_url(); ?>"><span>/ Register</span></a>
                             </div>
 
                             <!-- Search Icon -->
